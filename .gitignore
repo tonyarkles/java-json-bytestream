@@ -1,1 +1,3 @@
 *~
+*.class
+streaming_json/target/surefire-reports
