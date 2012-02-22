@@ -1,4 +1,4 @@
-package org.json;
+package com.peakxp.streaming_json;
 
 import java.io.BufferedReader;
 import java.io.IOException;
