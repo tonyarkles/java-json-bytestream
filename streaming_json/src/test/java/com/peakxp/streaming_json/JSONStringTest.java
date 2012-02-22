@@ -34,4 +34,11 @@ public class JSONStringTest
 	assertEquals( "a", jst.getString() );
 	assertTrue( jst.isCompleted() );
     }
+
+    public void testWithMultipleCharacters() {
+	setupWithString("foo bar baz");
+	assertEquals( "foo bar baz", jst.getString());
+	assertTrue( jst.isCompleted() );
+    }
+
 }
