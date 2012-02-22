@@ -30,4 +30,13 @@ public class JSONNumberTest
 	setupWithString("2");
 	assertEquals(2, jsn.getInt());
     }
+
+    public void testDecimal() {
+	setupWithString("3.14");
+	assertEquals( 3.14, jsn.getDouble(), 0.01 );
+    }
+    public void testDecimalWithExponent() {
+	setupWithString("3.00e8");
+	assertEquals( 3.00e8, jsn.getDouble(), 1e6);
+    }
 }

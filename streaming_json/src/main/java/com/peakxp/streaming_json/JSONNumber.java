@@ -23,4 +23,7 @@ class JSONNumber extends JSONElement {
 	return Integer.parseInt(this.sb.toString());
     }
 
+    public double getDouble() {
+	return Double.parseDouble(this.sb.toString());
+    }
 }
