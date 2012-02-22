@@ -26,7 +26,7 @@ class JSONString extends JSONElement {
     }
 
     public boolean isCompleted() {
-	return false;
+	return this.done;
     }
 
     public String getString() {
