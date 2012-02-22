@@ -1,8 +1,15 @@
 package com.peakxp.streaming_json;
 
 class JSONNumber extends JSONElement {
-    
+ 
+    private StringBuffer sb;
+
+    public JSONNumber() {
+	this.sb = new StringBuffer();
+    }
+   
     public boolean consume(char c) {
+	this.sb.append(c);
 	return true;
     }
     public boolean isCompleted() {
@@ -13,7 +20,7 @@ class JSONNumber extends JSONElement {
     }
 
     public int getInt() {
-	return 1;
+	return Integer.parseInt(this.sb.toString());
     }
 
 }
