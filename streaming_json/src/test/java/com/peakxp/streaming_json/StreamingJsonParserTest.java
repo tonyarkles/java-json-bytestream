@@ -20,7 +20,7 @@ public class StreamingJsonParserTest
 
     public void testSimpleObjectReturned() {
 	StreamingJsonParser sjp = new StreamingJsonParser();
-	sjp.parseBytes("{}".getBytes());
+	sjp.parseBytes("{}".toCharArray());
 	List res = sjp.getParsed();
 	assertEquals( 1, res.size());
     }
