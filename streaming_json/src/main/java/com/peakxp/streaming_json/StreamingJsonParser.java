@@ -18,6 +18,9 @@ public class StreamingJsonParser {
 	if (c == '{') {
 	    return new JSONObject();
 	}
+	if (c == '[') {
+	    return new JSONArray();
+	}
 	if (c == '"') {
 	    return new JSONString();
 	}
