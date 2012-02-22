@@ -82,4 +82,17 @@ public class StreamingJsonParserTest
 	assertTrue( list.get(0) instanceof JSONString );
 	assertEquals("foo", ((JSONString)list.get(0)).getString());
     }
+
+    public void testAcceptsAnArrayWithTwoStrings() {
+	setupWithParse("[\"foo\",\"bar\"]");
+	List res = sjp.getParsed();
+	assertEquals( 1, res.size());
+	assertTrue( res.get(0) instanceof JSONArray );
+
+	JSONArray arr = (JSONArray)res.get(0);
+	List<JSONElement> li = arr.getList();
+	assertEquals( 2, li.size() );
+	assertEquals( "foo", ((JSONString)li.get(0)).getString());
+	assertEquals( "bar", ((JSONString)li.get(1)).getString());
+    }
 }

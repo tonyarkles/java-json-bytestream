@@ -30,6 +30,9 @@ class JSONArray extends JSONElement {
 	    done = true;
 	    return true;
 	}
+	if (hasStarted && !elems.isEmpty() && (c == ',')) {
+	    return true;
+	}
 	return false;
     }
 
