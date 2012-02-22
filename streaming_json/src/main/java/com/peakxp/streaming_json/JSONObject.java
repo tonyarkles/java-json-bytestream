@@ -35,8 +35,12 @@ class JSONObject extends JSONElement {
     }
 
     boolean addChild(JSONElement e) {
-	// raise runtime error?
-	return false;
+	if (key == null) {
+	    key = (JSONString)e;
+	} else {
+	    this.map.put(key.getString(), e);
+	}
+	return true;
     }
 
     boolean takesChildren() {
