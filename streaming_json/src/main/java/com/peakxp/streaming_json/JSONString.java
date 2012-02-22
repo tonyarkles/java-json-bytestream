@@ -4,11 +4,13 @@ class JSONString extends JSONElement {
     private StringBuilder sb;
     private boolean started;
     private boolean done;
+    private boolean escape;
 
     public JSONString() {
 	this.sb = new StringBuilder();
 	this.started = false;
 	this.done = false;
+	this.escape = false;
     }
 
     /* for testing */
@@ -22,6 +24,11 @@ class JSONString extends JSONElement {
     public boolean consume(char c) {
 	if (!this.started && (c == '"')) {
 	    this.started = true;
+	} else if (!this.done && this.escape) {
+	    this.escape = false;
+	    sb.append(c);
+	} else if (!this.done && (c == '\\')) {
+	    this.escape = true;
 	} else if (!this.done && (c == '"')) {
 	    this.done = true;
 	} else {

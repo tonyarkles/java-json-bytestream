@@ -41,4 +41,9 @@ public class JSONStringTest
 	assertTrue( jst.isCompleted() );
     }
 
+    public void testWithEscapedCharacters() {
+	setupWithString("\\\"");
+	assertEquals( "\"", jst.getString());
+	assertTrue( jst.isCompleted() );
+    }
 }
