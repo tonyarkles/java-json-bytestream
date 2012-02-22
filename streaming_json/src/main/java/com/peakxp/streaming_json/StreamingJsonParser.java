@@ -6,12 +6,18 @@ import java.util.Stack;
 
 public class StreamingJsonParser {
     private Stack<JSONElement> stack;
+    private ArrayList<JSONElement> output;
+
+    public StreamingJsonParser() {
+	stack = new Stack<JSONElement>();
+	output = new ArrayList<JSONElement>();
+    }
 
     private JSONElement guessType(char c) {
 	if (c == '{') {
 	    return new JSONObject();
 	}
-	return null;
+	throw new RuntimeException("Unknown character passed to guessType: " + c);
     }
 
     void parseByte(char c) {
@@ -23,6 +29,12 @@ public class StreamingJsonParser {
 	if (stack.empty()) {
 	    stack.push(guessType(c));
 	}
+	if(!stack.peek().consume(c)) {
+	    // see about children here
+	}
+	if (stack.peek().isCompleted()) {
+	    output.add(stack.pop());
+	}
     }
     void parseBytes(char[] input) {
 	for (int i = 0; i < input.length; i++) {
@@ -30,7 +42,7 @@ public class StreamingJsonParser {
 	}
     }
 
-    List<Object> getParsed() {
-	return new ArrayList();
+    List<JSONElement> getParsed() {
+	return output;
     }
 }
