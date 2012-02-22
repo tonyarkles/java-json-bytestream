@@ -1,6 +1,7 @@
 package com.peakxp.streaming_json;
 
 import java.util.ArrayList;
+import java.util.List;
 
 class JSONArray extends JSONElement {
     private boolean done;
@@ -39,5 +40,9 @@ class JSONArray extends JSONElement {
     public boolean addChild(JSONElement e) {
 	elems.add(e);
 	return true;
+    }
+
+    public List<JSONElement> getList() {
+	return elems;
     }
 }

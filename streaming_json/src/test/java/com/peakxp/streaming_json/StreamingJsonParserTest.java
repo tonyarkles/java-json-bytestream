@@ -77,5 +77,9 @@ public class StreamingJsonParserTest
 	assertEquals( 1, res.size());
 	assertTrue( res.get(0) instanceof JSONArray );
 	
+	JSONArray arrayElem = (JSONArray)res.get(0);
+	List<JSONElement> list = arrayElem.getList();
+	assertTrue( list.get(0) instanceof JSONString );
+	assertEquals("foo", ((JSONString)list.get(0)).getString());
     }
 }

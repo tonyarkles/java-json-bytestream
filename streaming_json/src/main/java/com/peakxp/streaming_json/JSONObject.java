@@ -48,7 +48,7 @@ class JSONObject extends JSONElement {
 	return done;
     }
 
-    boolean addChild(JSONElement e) {
+    public boolean addChild(JSONElement e) {
 	if (key == null) {
 	    key = (JSONString)e;
 	    lookingFor = LookingFor.VALUE;
@@ -59,7 +59,7 @@ class JSONObject extends JSONElement {
 	return true;
     }
 
-    boolean takesChildren() {
+    public boolean takesChildren() {
 	return true;
     }
 
