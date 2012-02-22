@@ -14,10 +14,14 @@ public class StreamingJsonParser {
     }
 
     private JSONElement guessType(char c) {
+	// return null if we should just ignore it, throw an exception if it's truly bad
 	if (c == '{') {
 	    return new JSONObject();
 	}
-	throw new RuntimeException("Unknown character passed to guessType: " + c);
+	if (c == ' ') {
+	    return null;
+	}
+	throw new RuntimeException("Unknown character passed to guessType: '" + c + "'");
     }
 
     void parseByte(char c) {
@@ -27,7 +31,11 @@ public class StreamingJsonParser {
 	   - if not, see if it takes children; if yes, guessType and push
 	*/
 	if (stack.empty()) {
-	    stack.push(guessType(c));
+	    JSONElement n = guessType(c);
+	    if (n == null) {
+		return;
+	    }
+	    stack.push(n);
 	}
 	if(!stack.peek().consume(c)) {
 	    // see about children here
