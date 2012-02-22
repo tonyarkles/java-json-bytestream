@@ -31,4 +31,13 @@ class JSONArray extends JSONElement {
 	}
 	return false;
     }
+
+    public boolean takesChildren() {
+	return true;
+    }
+
+    public boolean addChild(JSONElement e) {
+	elems.add(e);
+	return true;
+    }
 }
