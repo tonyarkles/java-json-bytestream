@@ -40,11 +40,28 @@ public class StreamingJsonParser {
 	    }
 	    stack.push(n);
 	}
-	if(!stack.peek().consume(c)) {
-	    // see about children here
+	JSONElement el = stack.peek();
+	if(!el.consume(c)) {
+	    // what can this mean?
+	    // - start of a child
+	    // - end of an element (e.g. a number "123,"), in which case we need to pop it and keep going - ignore this case for now TODO since we're not worrying about those yet
+	    if (!el.takesChildren() && !el.isCompleted()) {
+		throw new RuntimeException("Refused to take '" + c + "' but also does not take children.");
+	    }
+	    JSONElement n = guessType(c);
+	    if (n == null) {
+		return;
+	    }
+	    stack.push(n);
+	    parseByte(c);
 	}
-	if (stack.peek().isCompleted()) {
-	    output.add(stack.pop());
+	if (el.isCompleted()) {
+	    JSONElement popped = stack.pop();
+	    if (stack.empty()) {
+		output.add(popped);
+	    } else {
+		stack.peek().addChild(popped);
+	    }
 	}
     }
     void parseBytes(char[] input) {

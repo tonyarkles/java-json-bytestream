@@ -44,4 +44,17 @@ public class JSONObjectTest
 	assertTrue(m.containsKey("foo"));
 	assertEquals("bar", ((JSONString)m.get("foo")).getString());
     }
+
+    public void testLookingFor() {
+	JSONObject j = new JSONObject();
+	JSONString k = new JSONString("foo");
+	JSONString v = new JSONString("bar");
+
+	assertEquals(JSONObject.LookingFor.KEY, j.lookingFor);
+	j.addChild(k);
+	assertEquals(JSONObject.LookingFor.VALUE, j.lookingFor);
+	j.addChild(v);
+	assertEquals(JSONObject.LookingFor.KEY, j.lookingFor);
+
+    }
 }

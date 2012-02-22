@@ -9,9 +9,14 @@ class JSONObject extends JSONElement {
 
     private JSONString key;
     private HashMap<String, JSONElement> map;
+    protected enum LookingFor {
+	KEY, VALUE
+    }
+    protected LookingFor lookingFor;
 
     public JSONObject() {
 	this.map = new HashMap();
+	this.lookingFor = LookingFor.KEY;
     }
 
     public boolean consume(char c) {
@@ -19,8 +24,17 @@ class JSONObject extends JSONElement {
 	    hasStarted = true;
 	    return true;
 	}
-	if (hasStarted && (c == '}')) {
+	if (!hasStarted) {
+	    return false;
+	}
+	if (c == '}') {
 	    done = true;
+	    return true;
+	}
+	if (c == ' ') {
+	    return true;
+	}
+	if (c == ':' && lookingFor == LookingFor.VALUE) {
 	    return true;
 	}
 	return false;
@@ -37,8 +51,10 @@ class JSONObject extends JSONElement {
     boolean addChild(JSONElement e) {
 	if (key == null) {
 	    key = (JSONString)e;
+	    lookingFor = LookingFor.VALUE;
 	} else {
 	    this.map.put(key.getString(), e);
+	    lookingFor = LookingFor.KEY;
 	}
 	return true;
     }
