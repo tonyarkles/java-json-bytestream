@@ -21,12 +21,34 @@ class JSONString extends JSONElement {
 	this.done = true;
     }
 
+    public char escapedChar(char c) {
+	// thanks to douglascrockford for a rough approximation of this
+	switch (c) {
+	case '\\':
+	case '"':
+	    return c;
+	case 'b':
+	    return '\b';
+	case 't':
+	    return '\t';
+	case 'n':
+	    return '\n';
+	case 'f':
+	    return '\f';
+	case 'r':
+	    return '\r';
+	default:
+	    return ' ';
+	    // need to handle unicode
+	}
+    }
+
     public boolean consume(char c) {
 	if (!this.started && (c == '"')) {
 	    this.started = true;
 	} else if (!this.done && this.escape) {
 	    this.escape = false;
-	    sb.append(c);
+	    sb.append( escapedChar(c) );
 	} else if (!this.done && (c == '\\')) {
 	    this.escape = true;
 	} else if (!this.done && (c == '"')) {
