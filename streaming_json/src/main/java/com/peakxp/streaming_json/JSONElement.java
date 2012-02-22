@@ -6,8 +6,7 @@ abstract class JSONElement {
     abstract boolean isError();
 
     boolean addChild(JSONElement e) {
-	// raise runtime error?
-	return false;
+	throw new RuntimeException("addChild not implemented");
     }
 
     boolean takesChildren() {

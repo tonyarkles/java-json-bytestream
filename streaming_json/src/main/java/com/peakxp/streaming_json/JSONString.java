@@ -10,6 +10,15 @@ class JSONString extends JSONElement {
 	this.started = false;
 	this.done = false;
     }
+
+    /* for testing */
+    protected JSONString(String s) {
+	this();
+	this.sb.append(s);
+	this.started = true;
+	this.done = true;
+    }
+
     public boolean consume(char c) {
 	if (!this.started && (c == '"')) {
 	    this.started = true;

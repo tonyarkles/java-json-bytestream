@@ -5,6 +5,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Unit test for simple App.
@@ -25,5 +26,21 @@ public class JSONObjectTest
 	assertFalse(j.isCompleted());
 	assertTrue(j.consume('}'));
 	assertTrue(j.isCompleted());
+    }
+
+    public void testTakesChildren() {
+	JSONObject j = new JSONObject();
+	assertTrue(j.takesChildren());
+    }
+
+    public void testAddsChildrenIntoMap() {
+	JSONObject j = new JSONObject();
+	JSONString k = new JSONString("foo");
+	JSONString v = new JSONString("bar");
+	j.addChild(k);
+	j.addChild(v);
+
+	Map m = j.getMap();
+	assertTrue(m.containsKey("foo"));
     }
 }
