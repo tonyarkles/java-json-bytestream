@@ -25,4 +25,9 @@ public class JSONNumberTest
 	setupWithString("1");
 	assertEquals(1, jsn.getInt());
     }
+
+    public void testTwo() {
+	setupWithString("2");
+	assertEquals(2, jsn.getInt());
+    }
 }
