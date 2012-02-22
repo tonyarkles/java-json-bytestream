@@ -70,4 +70,12 @@ public class StreamingJsonParserTest
 	assertEquals( 1, res.size());
 	assertTrue( res.get(0) instanceof JSONArray );
     }
+
+    public void testAcceptsAnArrayWithOneString() {
+	setupWithParse("[\"foo\"]");
+	List res = sjp.getParsed();
+	assertEquals( 1, res.size());
+	assertTrue( res.get(0) instanceof JSONArray );
+	
+    }
 }
