@@ -54,4 +54,14 @@ public class StreamingJsonParserTest
 	assertEquals( 1, res.size());
 	assertTrue( res.get(0) instanceof JSONString );	
     }
+
+    public void testOutputsTwoEmptyObjects() {
+	setupWithParse("{}{}");
+	List res = sjp.getParsed();
+
+	assertEquals( 2, res.size());
+	assertTrue( res.get(0) instanceof JSONObject );
+	assertTrue( res.get(1) instanceof JSONObject );
+	
+    }
 }
