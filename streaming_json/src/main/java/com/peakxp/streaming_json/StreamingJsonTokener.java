@@ -28,7 +28,11 @@ For containing state between invocations, we should keep a stack that keeps trac
 
 Algorithmically, each of these will have a consume(char c), that will
 return true or false based on whether or not that token was
-consumed. Also has an isCompleted() and isError() method.
+consumed. Also has an isCompleted() and isError() method. And addChild() and takesChildren() method. 
+
+If a token is not consumed and the current top-of-stack takes
+children, we try to figure out what type of object it should be and
+push the new one onto the stack.
 
  */
 
