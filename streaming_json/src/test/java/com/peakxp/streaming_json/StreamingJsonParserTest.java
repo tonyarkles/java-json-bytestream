@@ -39,8 +39,13 @@ public class StreamingJsonParserTest
     public void testSingleStringKeyValueObject() {
 	setupWithParse("{ \"foo\": \"bar\" }");
 	List res = sjp.getParsed();
+
 	assertEquals( 1, res.size());
 	assertTrue( res.get(0) instanceof JSONObject );
+
+	JSONObject jso = (JSONObject)res.get(0);
+
+	assertEquals( 1, jso.getMap().size() );
     }
 
     public void testAcceptsAString() {

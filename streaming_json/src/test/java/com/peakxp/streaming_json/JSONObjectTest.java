@@ -42,5 +42,6 @@ public class JSONObjectTest
 
 	Map m = j.getMap();
 	assertTrue(m.containsKey("foo"));
+	assertEquals("bar", ((JSONString)m.get("foo")).getString());
     }
 }
