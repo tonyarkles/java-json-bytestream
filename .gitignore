@@ -1,3 +1,4 @@
 *~
 *.class
 streaming_json/target/surefire-reports
+streaming_json/target/test-classes
