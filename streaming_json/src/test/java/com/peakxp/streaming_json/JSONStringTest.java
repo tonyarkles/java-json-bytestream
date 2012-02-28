@@ -14,13 +14,17 @@ public class JSONStringTest
 {
     JSONString jst;
     
-    public void setupWithString(String s) {
+    public void setupWithString(String s, char startChar) {
 	jst = new JSONString();
 	jst.consume('"');
 	for (int i = 0; i < s.length(); i++) {
 	    jst.consume(s.charAt(i));
 	}
 	jst.consume('"');
+    }
+
+    public void setupWithString(String s) {
+	setupWithString(s, '"');
     }
 
     public void testEmptyString() {
@@ -55,5 +59,9 @@ public class JSONStringTest
     public void testWithAllEscapedCharacters() {
 	setupWithString("\\\\ \\\" \\b \\t \\n \\f \\r");
 	assertEquals("\\ \" \b \t \n \f \r", jst.getString());
+    }
+    public void testWithSingleQuoteString() {
+	setupWithString("foo", '\'');
+	assertEquals("foo", jst.getString());
     }
 }

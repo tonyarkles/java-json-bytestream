@@ -5,6 +5,7 @@ class JSONString extends JSONElement {
     private boolean started;
     private boolean done;
     private boolean escape;
+    private char startCharacter;
 
     public JSONString() {
 	this.sb = new StringBuilder();
@@ -44,14 +45,15 @@ class JSONString extends JSONElement {
     }
 
     public boolean consume(char c) {
-	if (!this.started && (c == '"')) {
+	if (!this.started && (c == '"' || c == '\'')) {
 	    this.started = true;
+	    this.startCharacter = c;
 	} else if (!this.done && this.escape) {
 	    this.escape = false;
 	    sb.append( escapedChar(c) );
 	} else if (!this.done && (c == '\\')) {
 	    this.escape = true;
-	} else if (!this.done && (c == '"')) {
+	} else if (!this.done && (c == this.startCharacter)) {
 	    this.done = true;
 	} else {
 	    sb.append(c);
@@ -68,6 +70,10 @@ class JSONString extends JSONElement {
     }
 
     public String getString() {
+	return sb.toString();
+    }
+
+    public String toString() {
 	return sb.toString();
     }
 }

@@ -31,7 +31,10 @@ class JSONObject extends JSONElement {
 	    done = true;
 	    return true;
 	}
-	if (c == ' ') {
+	if (c == ' ' || c == '\t' || c == '\n') {
+	    return true;
+	}
+	if (c == ',' && lookingFor == LookingFor.KEY) {
 	    return true;
 	}
 	if (c == ':' && lookingFor == LookingFor.VALUE) {
@@ -54,6 +57,7 @@ class JSONObject extends JSONElement {
 	    lookingFor = LookingFor.VALUE;
 	} else {
 	    this.map.put(key.getString(), e);
+	    key = null;
 	    lookingFor = LookingFor.KEY;
 	}
 	return true;
@@ -65,5 +69,13 @@ class JSONObject extends JSONElement {
 
     public Map<String, JSONElement> getMap() {
 	return map;
+    }
+
+    public String toString() {
+	StringBuilder sb = new StringBuilder();
+	sb.append("JSONObject(");
+	sb.append(this.map.toString());
+	sb.append(")");
+	return sb.toString();
     }
 }

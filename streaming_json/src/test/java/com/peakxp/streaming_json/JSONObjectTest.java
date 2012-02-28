@@ -57,4 +57,14 @@ public class JSONObjectTest
 	assertEquals(JSONObject.LookingFor.KEY, j.lookingFor);
 
     }
+
+    public void testWhitespaceInline() {
+	JSONObject j = new JSONObject();
+	assertTrue(j.consume('{'));
+	assertTrue(j.consume(' '));
+	assertTrue(j.consume('\t'));
+	assertTrue(j.consume('\n'));
+	assertTrue(j.consume('}'));
+	assertTrue(j.isCompleted());
+    }
 }

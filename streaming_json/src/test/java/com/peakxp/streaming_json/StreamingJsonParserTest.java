@@ -5,6 +5,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Unit test for simple App.
@@ -129,5 +130,39 @@ public class StreamingJsonParserTest
 	assertEquals( 6.02e23, ((JSONNumber)li.get(1)).getDouble(), 0.01e23);
 	assertEquals( 4, ((JSONNumber)li.get(2)).getInt());
     }
+    
+    public void testAcceptsSingleQuotedString() {
+	setupWithParse("'foo'");
+	List res = sjp.getParsed();
+	JSONString s = (JSONString)res.get(0);
+	assertEquals("foo", s.getString());
+    }
 
+    public void testAcceptsNewlineBetweenObjects() {
+	setupWithParse("{}\n{}\n");
+	List res = sjp.getParsed();
+	assertEquals(2, res.size());
+    }
+
+    public void testAcceptsObjectWithTwoKeys() {
+	setupWithParse("{ 'foo' : 'bar', 'baz' : 'zap' }");
+	List res = sjp.getParsed();
+	assertEquals(1, res.size());
+    }
+
+    public void testAcceptsObjectsWithTwoDoubleQuoteKeys() {
+	setupWithParse("{ \"foo\" : \"bar\", \"baz\": \"zap\" }");
+	List res = sjp.getParsed();
+	assertEquals(1, res.size());
+    }
+
+    public void testObjectWithOneKVPair() {
+	setupWithParse("{ 'foo' : 'bar' }");
+	List res = sjp.getParsed();
+	assertEquals(1, res.size());
+	JSONObject jso = (JSONObject)res.get(0);
+	Map<String, JSONElement> map = jso.getMap();
+	assertTrue(map.containsKey("foo"));
+	assertEquals("bar", ((JSONString)map.get("foo")).getString());
+    }
 }
