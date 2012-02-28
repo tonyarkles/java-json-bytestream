@@ -15,6 +15,9 @@ public class StreamingJsonParser {
 
     private JSONElement guessType(char c) {
 	// return null if we should just ignore it, throw an exception if it's truly bad
+	if ( (c == '-') || (c >= '0' && c <= '9') ) {
+	    return new JSONNumber();
+	}
 	if (c == '{') {
 	    return new JSONObject();
 	}
@@ -48,6 +51,16 @@ public class StreamingJsonParser {
 	    // what can this mean?
 	    // - start of a child
 	    // - end of an element (e.g. a number "123,"), in which case we need to pop it and keep going - ignore this case for now TODO since we're not worrying about those yet
+	    if (el.isCompleted()) {
+		stack.pop();
+		JSONElement newtop = stack.peek();
+		if (newtop.takesChildren()) {
+		    newtop.addChild(el);
+		    parseByte(c);
+		    return;
+		}
+	    }
+
 	    if (!el.takesChildren() && !el.isCompleted()) {
 		throw new RuntimeException("Refused to take '" + c + "' but also does not take children.");
 	    }

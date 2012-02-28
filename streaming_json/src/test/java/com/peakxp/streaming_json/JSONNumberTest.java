@@ -35,8 +35,17 @@ public class JSONNumberTest
 	setupWithString("3.14");
 	assertEquals( 3.14, jsn.getDouble(), 0.01 );
     }
+
     public void testDecimalWithExponent() {
 	setupWithString("3.00e8");
 	assertEquals( 3.00e8, jsn.getDouble(), 1e6);
+    }
+
+    public void testTerminatesOnComma() {
+	setupWithString("3.0e8");
+	assertFalse( jsn.isCompleted() );
+
+	assertFalse(jsn.consume(','));
+	assertTrue( jsn.isCompleted() );
     }
 }

@@ -119,4 +119,15 @@ public class StreamingJsonParserTest
 	assertEquals( "bar", ((JSONString)li.get(1)).getString());
     }
 
+    public void testAcceptsAnArrayWithMultipleNumbers() {
+	setupWithParse("[ 3.14, 6.02e23, 4 ]");
+	List res = sjp.getParsed();
+	JSONArray arr = (JSONArray)res.get(0);
+	List<JSONElement> li = arr.getList();
+	assertEquals( 3, li.size() );
+	assertEquals( 3.14, ((JSONNumber)li.get(0)).getDouble(), 0.01 );
+	assertEquals( 6.02e23, ((JSONNumber)li.get(1)).getDouble(), 0.01e23);
+	assertEquals( 4, ((JSONNumber)li.get(2)).getInt());
+    }
+
 }
