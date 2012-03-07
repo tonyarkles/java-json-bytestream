@@ -3,7 +3,7 @@ package com.peakxp.streaming_json;
 import java.util.Map;
 import java.util.HashMap;
 
-class JSONObject extends JSONElement {
+public class JSONObject extends JSONElement {
     private boolean hasStarted = false;
     private boolean done = false;
 

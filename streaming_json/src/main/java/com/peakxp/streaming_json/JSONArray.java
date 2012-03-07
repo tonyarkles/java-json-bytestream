@@ -3,7 +3,7 @@ package com.peakxp.streaming_json;
 import java.util.ArrayList;
 import java.util.List;
 
-class JSONArray extends JSONElement {
+public class JSONArray extends JSONElement {
     private boolean done;
     private boolean hasStarted;
     private ArrayList<JSONElement> elems;

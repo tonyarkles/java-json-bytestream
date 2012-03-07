@@ -30,7 +30,7 @@ public class StreamingJsonParser {
 	if (c == ' ' || c == '\n') {
 	    return null;
 	}
-	throw new RuntimeException("Unknown character passed to guessType: '" + c + "'" + " top of stack is: " + stack.peek().toString());
+	throw new RuntimeException("Unknown character passed to guessType: '" + c + "'");
     }
 
     void parseByte(char c) {
@@ -80,17 +80,21 @@ public class StreamingJsonParser {
 	    }
 	}
     }
-    void parseBytes(char[] input) {
+    public void parseBytes(char[] input) {
 	parseBytes(input, input.length);
     }
 
-    void parseBytes(char[] input, int count) {
+    public void parseBytes(char[] input, int count) {
 	for (int i = 0; i < count; i++) {
 	    parseByte(input[i]);
 	}	
     }
 
-    List<JSONElement> getParsed() {
+    public List<JSONElement> getParsed() {
 	return output;
+    }
+
+    public void flushParsed() {
+	output = new ArrayList<JSONElement>();
     }
 }
