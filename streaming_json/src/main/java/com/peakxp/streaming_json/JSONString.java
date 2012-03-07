@@ -1,6 +1,6 @@
 package com.peakxp.streaming_json;
 
-class JSONString extends JSONElement {
+public class JSONString extends JSONElement {
     private StringBuilder sb;
     private boolean started;
     private boolean done;
